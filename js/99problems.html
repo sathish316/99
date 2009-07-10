@@ -6,8 +6,7 @@
   <script src="1to99.js">
   </script>
   <script>
-    var problems = ['last element of a list'];
-    var problem_fns = [last];
+    var fns = [last, last_but_one];
     $(function() {
       var problem_list = $('#problem');
       for (var p = 1; p <= 99; p++) {
@@ -16,6 +15,7 @@
       problem_list.change(function () {
         var p = problem_list.attr('value');
         $('#fn_code').val(fn_code(p))
+        $('#fn_test_code').val('');
       });
       $('#test').click(function(){
         var results = String(eval($('#fn_test_code').val()));
@@ -23,10 +23,10 @@
       })
     });
     function problem_title(p) {
-      return problems[p-1] ? (p + "- " + problems[p-1]) : p;
+      return fns[p-1] ? (p + "-" + fns[p-1].name) : p;
     }
     function fn_code(p) {
-      return problem_fns[p-1] || "TODO"
+      return fns[p-1] || "TODO"
     }
   </script>
 </head>
