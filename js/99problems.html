@@ -1,0 +1,58 @@
+<html>
+<head>
+  <title>99 problems in javascript</title>
+  <script src="jquery-1.3.2.js">
+  </script>
+  <script src="1to99.js">
+  </script>
+  <script>
+    var problems = ['last element of a list'];
+    var problem_fns = [last];
+    $(function() {
+      var problem_list = $('#problem');
+      for (var p = 1; p <= 99; p++) {
+        problem_list.append("<option value='" + p + "'>" + problem_title(p) + "</option>")
+      }
+      problem_list.change(function () {
+        var p = problem_list.attr('value');
+        $('#fn_code').val(fn_code(p))
+      });
+      $('#test').click(function(){
+        var results = String(eval($('#fn_test_code').val()));
+        $('#results').html(results);
+      })
+    });
+    function problem_title(p) {
+      return problems[p-1] ? (p + "- " + problems[p-1]) : p;
+    }
+    function fn_code(p) {
+      return problem_fns[p-1] || "TODO"
+    }
+  </script>
+</head>
+<body>
+<p>
+  Problem:
+  <select id="problem">
+    <option value="0">Select</option>
+  </select>
+</p>
+<p>
+  Function: <br/>
+  <textarea id="fn_code" rows="10" cols="60">
+  </textarea>
+</p>
+<p>
+  Test: <br/>
+  <textarea id="fn_test_code" rows="10" cols="60">
+  </textarea> <br/>
+  <input id="test" type="button" value="Test"/><br/>
+</p>
+<p> Results:
+<div id="results">
+</div>
+</p>
+
+
+</body>
+</html>
