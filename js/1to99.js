@@ -44,3 +44,11 @@ function length(list){
   else
     return 1 + length(tail(list));
 }
+
+//5
+function reverse(list){
+  if(tail(list).eq(EMPTY))
+    return list;
+  else
+    return reverse(tail(list)).concat(head(list));
+}
