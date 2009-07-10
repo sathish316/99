@@ -37,7 +37,7 @@ def flatten(list)
   end
 end
 
-#p flatten([1,[2,[3,4],5]])
+p flatten([1,[2,[3,4],5]])
 
 def compress(list)
   clist = []
@@ -45,7 +45,7 @@ def compress(list)
   clist
 end
 
-#p compress([1,1,2,2,2,2,3,4,5,6,6,6,6,7,7,7])
+p compress([1,1,2,2,2,2,3,4,5,6,6,6,6,7,7,7])
 
 def pack(list)
   plist = []
@@ -58,7 +58,7 @@ def pack(list)
   plist
 end
 
-#p pack([1,1,2,2,2,2,3,4,5,6,6,6,6,7,7,7])
+p pack([1,1,2,2,2,2,3,4,5,6,6,6,6,7,7,7])
 
 def rle(list)
   pack(list).collect {|l| [l.size, l.first]}
@@ -86,3 +86,20 @@ def uncompress(rlee)
 end
 
 p uncompress([[2, 1], [4, 2], 3, [2, 4], 5, [4, 6], [3, 7]])
+
+def rled#TODO
+
+end
+
+def dup(list)
+  list.inject([]){|result,x| result << x; result << x}
+end
+
+p dup([1,2,3,4,5])
+
+def dupn(list,n)
+  list.inject([]){|result,x| n.times {result << x}; result}
+end
+
+p dupn([1,2,3,4,5],4)
+
