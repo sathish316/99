@@ -28,3 +28,19 @@ function last_but_one(list){
   else
     return last_but_one(list.slice(1));
 }
+
+//3
+function element_at(list,k){
+  if(k == 1)
+    return head(list)
+  else
+    return element_at(tail(list), k-1);
+}
+
+//4
+function length(list){
+  if(list.eq(EMPTY))
+    return 0;
+  else
+    return 1 + length(tail(list));
+}
