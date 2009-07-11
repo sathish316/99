@@ -184,6 +184,7 @@ def remove_at(list,k)
     i == (k-1)
   end
   [e,new_list]
+  new_list
 end
   
 puts "remove_at:"
@@ -238,3 +239,56 @@ end
 
 puts "rand_permutation:"
 p rand_permutation(%w{a b c d e f})
+
+def product(one,two)
+  product = []
+  one.each do |x|
+    two.each do |y|
+      product << [x,y]
+    end
+  end
+  product.map(&:flatten)
+end
+
+def remove_at_i(list,i)
+  list.reject_with_index {|x,index| i == index}
+end
+
+class Array
+  def push_all(all)
+    all.each {|x| self << x}
+    self
+  end
+end
+
+def combinations(list,n)
+  return list.collect {|x| [x]} if n == 1
+  combinations = []
+  list.each_with_index do |x,i|
+    combinations.push_all(product([x], combinations(remove_at_i(list,i), n-1)))
+  end
+  combinations.map(&:sort).uniq
+end
+
+puts "combinations:"
+p combinations(%w{a b c},1)
+p combinations(%w{a b c},2)
+p combinations(%w{a b c},3)
+p combinations(%w{a b c d e},3)
+p combinations(%w{a b c d e f g h i j k l}, 3).size
+
+def groups(persons)
+  [combinations(persons,2),
+  combinations(persons,3),
+  combinations(persons,4)]  
+end
+
+#puts "groups:"
+#p groups(%w{a b c d e f g h i})
+
+def group_list(persons, list)
+  list.collect {|i| combinations(persons,i)}
+end
+
+#puts "group list:"
+#p group_list(%w{a b c d e f g h i},[1,2,3])
