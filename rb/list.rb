@@ -178,8 +178,63 @@ puts "rotate:"
 p rotate(%w{a b c d e f g h},3)
 
 def remove_at(list,k)
-  list.reject_with_index {|x,i| i == (k-1)}
+  e = nil
+  new_list = list.reject_with_index do |x,i|
+    e = x  if i == (k-1) 
+    i == (k-1)
+  end
+  [e,new_list]
 end
   
-puts "remove:"  
+puts "remove_at:"
 p remove_at(%w{a b c d},2)
+
+
+def insert_at(e, list, k)
+  new_list = []
+  list.each_with_index do |x,i|
+    new_list << e if i == k-1
+    new_list << x
+  end
+  new_list
+end
+
+puts "insert_at:"
+p insert_at('vada', %w{idly chutney sambar},2)
+
+def range(i,j)
+  (i..j).to_a #stupid
+end
+
+puts "range:"
+p range(5,10)
+
+#random selection without duplication
+def rand_select(list,n)
+  rnums = []
+  n.times do 
+    rindex = rand(length(list))  
+    while rnums.include?(rindex) 
+      rindex = rand(length(list))
+    end
+    rnums << rindex
+  end
+  rnums.collect {|i| list[i]}
+end
+
+puts "rand_list:"
+p rand_select(%w{1 b c d e f g h i j k l m n o p q r s t u v w x y z},5)
+
+def rnd_select(n,m)
+  rand_select(range(1,m),n)
+end
+
+puts "rnd_select:"
+p rnd_select(4,20)
+
+def rand_permutation(list)
+  rand_select(list, length(list))
+end
+
+puts "rand_permutation:"
+p rand_permutation(%w{a b c d e f})
