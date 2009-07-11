@@ -292,3 +292,38 @@ end
 
 #puts "group list:"
 #p group_list(%w{a b c d e f g h i},[1,2,3])
+
+class Array
+  def collect_with_index
+    new_array = []
+    each_with_index do |x,i|
+      new_array << yield(x,i)
+    end
+    new_array
+  end
+end
+
+def lsort(inlist)
+  histogram = inlist.collect_with_index {|list,i| [i,list.length]}
+  histogram.sort!{|a,b| a[1] - b[1]}
+  histogram.collect {|histo| inlist[histo[0]]}
+end
+  
+puts "lsort inlist:"
+p lsort([%w{a b c}, %w{d e}, %w{f g h}, %w{d e}, %w{i j k l}, %w{m n}, %w{o}])
+
+def lfsort(inlist)
+  length_lists = {}
+  inlist.each_with_index do |list,i| 
+    length_lists[list.length] ||= []
+    length_lists[list.length] << list
+  end
+  length_lists_size = {}
+  length_lists.each {|len,lists| length_lists_size[len] = lists.size}
+  sorted_inlists = []
+  length_lists_size.sort_by {|len,size| size}.each {|ls| sorted_inlists.push_all(length_lists[ls[0]])}
+  sorted_inlists
+end
+
+puts "lfsort inlist:"
+p lfsort [%w{a b c}, %w{d e}, %w{f g h}, %w{d e}, %w{i j k l}, %w{m n}, %w{o}]
