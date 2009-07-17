@@ -1,54 +1,32 @@
-var EMPTY = [];
-
-function head(list){
-  return list[0];
+var first = function(ary){
+  return ary[0];
 }
 
-function tail(list){
-  return list.slice(1)
+var rest = function(ary){
+  return ary.slice(1);
 }
 
-Array.prototype.eq = function(other){
-  return this.length > 0 ? this == other :
-         other.constructor == Array && other.length == 0 //Empty Arrays are not equal in js
+var p99 = {
+last: function(ary){
+  return ary[ary.length-1];
+},
+
+last_but_one: function(ary){
+  return ary[ary.length-2];
+},
+
+kth: function(ary,k){
+  return ary[k-1];
+},
+
+len: function(ary){
+  return ary.length;
+},
+
+reverse: function(ary){
+  if(ary.length <= 1)
+    return ary;
+  return this.reverse(rest(ary)).concat([first(ary)]);
 }
 
-//1
-function last(list){
-  if(tail(list).eq(EMPTY))
-    return head(list);
-  else
-    return last(tail(list));
-}
-
-//2
-function last_but_one(list){
-  if(head(tail(list)) == last(list))
-    return head(list);
-  else
-    return last_but_one(list.slice(1));
-}
-
-//3
-function element_at(list,k){
-  if(k == 1)
-    return head(list)
-  else
-    return element_at(tail(list), k-1);
-}
-
-//4
-function length(list){
-  if(list.eq(EMPTY))
-    return 0;
-  else
-    return 1 + length(tail(list));
-}
-
-//5
-function reverse(list){
-  if(tail(list).eq(EMPTY))
-    return list;
-  else
-    return reverse(tail(list)).concat(head(list));
-}
+};

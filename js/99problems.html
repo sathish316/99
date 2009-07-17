@@ -6,7 +6,10 @@
   <script src="1to99.js">
   </script>
   <script>
-    var fns = [last, last_but_one, element_at, length, reverse];
+    var fns = [];
+    for(var fn in p99){
+      fns.push(fn);
+    }
     $(function() {
       var problem_list = $('#problem');
       for (var p = 1; p <= 99; p++) {
@@ -23,11 +26,12 @@
       })
     });
     function problem_title(p) {
-      return fns[p-1] ? (p + "-" + fns[p-1].name) : p;
+      return fns[p-1] ? (p + "-" + fns[p-1]) : p;
     }
     function fn_code(p) {
-      return fns[p-1] || "TODO"
+      return fns[p-1] ? p99[fns[p-1]] : "TODO";
     }
+    $.extend(window, p99);//this is stupid but its a temp fix to allow test code to execute without being executed in the context of p99 object
   </script>
 </head>
 <body>
